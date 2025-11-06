@@ -34,8 +34,8 @@ async fn get_current_block_handler() -> Json<BlockResponse> {
 }
 
 async fn get_current_block() -> Result<Json<BlockResponse>, String> {
-    // Using Alchemy's Base mainnet RPC for better performance
-    let rpc_url = "https://base-mainnet.g.alchemy.com/v2/demo"; // Free tier, replace with your API key for production
+    // Using Coinbase Developer private RPC endpoint for maximum performance
+    let rpc_url = "https://api.developer.coinbase.com/rpc/v1/base/78zLUgDaakNSuRxuMTNU17MSqxQoQhbd";
 
     let provider = Provider::<Http>::try_from(rpc_url)
         .map_err(|_| "Failed to create provider".to_string())?;
