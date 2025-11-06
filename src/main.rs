@@ -1,7 +1,10 @@
 use axum::{routing::get, Json, Router};
-use serde::{Deserialize, Serialize};
+use ethers::providers::{Http, Provider};
+use ethers::middleware::Middleware;
+use serde::Serialize;
 use std::env;
 use std::net::SocketAddr;
+use std::sync::Arc;
 
 #[derive(Serialize)]
 struct PoloResponse {
@@ -12,19 +15,6 @@ struct PoloResponse {
 struct BlockResponse {
     block_number: String,
     block_number_decimal: u64,
-}
-
-#[derive(Serialize)]
-struct RpcRequest {
-    jsonrpc: String,
-    method: String,
-    params: Vec<String>,
-    id: u32,
-}
-
-#[derive(Deserialize)]
-struct RpcResponse {
-    result: String,
 }
 
 async fn marco() -> Json<PoloResponse> {
@@ -44,39 +34,23 @@ async fn get_current_block_handler() -> Json<BlockResponse> {
 }
 
 async fn get_current_block() -> Result<Json<BlockResponse>, String> {
-    let client = reqwest::Client::new();
-    let rpc_url = "https://mainnet.base.org";
+    // Using Alchemy's Base mainnet RPC for better performance
+    let rpc_url = "https://base-mainnet.g.alchemy.com/v2/demo"; // Free tier, replace with your API key for production
 
-    let request = RpcRequest {
-        jsonrpc: "2.0".to_string(),
-        method: "eth_blockNumber".to_string(),
-        params: vec![],
-        id: 1,
-    };
+    let provider = Provider::<Http>::try_from(rpc_url)
+        .map_err(|_| "Failed to create provider".to_string())?;
 
-    match client
-        .post(rpc_url)
-        .json(&request)
-        .send()
-        .await
-    {
-        Ok(response) => {
-            match response.json::<RpcResponse>().await {
-                Ok(rpc_response) => {
-                    // Remove "0x" prefix and parse as hex
-                    let hex_block = rpc_response.result.trim_start_matches("0x");
-                    match u64::from_str_radix(hex_block, 16) {
-                        Ok(block_number) => Ok(Json(BlockResponse {
-                            block_number: rpc_response.result,
-                            block_number_decimal: block_number,
-                        })),
-                        Err(_) => Err("Failed to parse block number".to_string()),
-                    }
-                }
-                Err(_) => Err("Failed to parse RPC response".to_string()),
-            }
+    let provider = Arc::new(provider);
+
+    match provider.get_block_number().await {
+        Ok(block_number) => {
+            let block_hex = format!("0x{:x}", block_number);
+            Ok(Json(BlockResponse {
+                block_number: block_hex,
+                block_number_decimal: block_number.as_u64(),
+            }))
         }
-        Err(_) => Err("Failed to connect to Base RPC".to_string()),
+        Err(_) => Err("Failed to get block number from RPC".to_string()),
     }
 }
 
