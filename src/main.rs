@@ -92,7 +92,79 @@ async fn api_docs_json() -> Json<ApiDocs> {
 async fn api_docs_html() -> Html<String> {
     let docs = api_docs_json().await.0;
     
-    let endpoints_html: String = docs.endpoints.iter().map(|endpoint| {
+    // Categorize endpoints
+    let mut blockchain_endpoints = Vec::new();
+    let mut utility_endpoints = Vec::new();
+    let mut docs_endpoints = Vec::new();
+    
+    for endpoint in &docs.endpoints {
+        let category = if endpoint.path.contains("Block") || endpoint.path.contains("block") {
+            "blockchain"
+        } else if endpoint.path.contains("docs") || endpoint.path.contains("Docs") {
+            "documentation"
+        } else {
+            "utility"
+        };
+        
+        match category {
+            "blockchain" => blockchain_endpoints.push(endpoint),
+            "documentation" => docs_endpoints.push(endpoint),
+            _ => utility_endpoints.push(endpoint),
+        }
+    }
+    
+    // Generate sidebar navigation
+    let mut sidebar_items = String::new();
+    if !blockchain_endpoints.is_empty() {
+        sidebar_items.push_str(r#"<div class="nav-category">Blockchain</div>"#);
+        for endpoint in &blockchain_endpoints {
+            let id = endpoint.path.replace("/", "-").replace("api-", "");
+            sidebar_items.push_str(&format!("<a href=\"#{}\" class=\"nav-item\">{}</a>", id, endpoint.path));
+        }
+    }
+    if !utility_endpoints.is_empty() {
+        sidebar_items.push_str(r#"<div class="nav-category">Utility</div>"#);
+        for endpoint in &utility_endpoints {
+            let id = endpoint.path.replace("/", "-").replace("api-", "");
+            sidebar_items.push_str(&format!("<a href=\"#{}\" class=\"nav-item\">{}</a>", id, endpoint.path));
+        }
+    }
+    if !docs_endpoints.is_empty() {
+        sidebar_items.push_str(r#"<div class="nav-category">Documentation</div>"#);
+        for endpoint in &docs_endpoints {
+            let id = endpoint.path.replace("/", "-").replace("api-", "");
+            sidebar_items.push_str(&format!("<a href=\"#{}\" class=\"nav-item\">{}</a>", id, endpoint.path));
+        }
+    }
+    
+    // Generate endpoint cards with IDs
+    let mut endpoints_html = String::new();
+    
+    if !blockchain_endpoints.is_empty() {
+        endpoints_html.push_str(r#"<h2 class="section-title" id="blockchain">Blockchain</h2>"#);
+        for endpoint in &blockchain_endpoints {
+            let id = endpoint.path.replace("/", "-").replace("api-", "");
+            endpoints_html.push_str(&format_endpoint_card(endpoint, &id));
+        }
+    }
+    
+    if !utility_endpoints.is_empty() {
+        endpoints_html.push_str(r#"<h2 class="section-title" id="utility">Utility</h2>"#);
+        for endpoint in &utility_endpoints {
+            let id = endpoint.path.replace("/", "-").replace("api-", "");
+            endpoints_html.push_str(&format_endpoint_card(endpoint, &id));
+        }
+    }
+    
+    if !docs_endpoints.is_empty() {
+        endpoints_html.push_str(r#"<h2 class="section-title" id="documentation">Documentation</h2>"#);
+        for endpoint in &docs_endpoints {
+            let id = endpoint.path.replace("/", "-").replace("api-", "");
+            endpoints_html.push_str(&format_endpoint_card(endpoint, &id));
+        }
+    }
+    
+    fn format_endpoint_card(endpoint: &ApiEndpoint, id: &str) -> String {
         let method_badge = match endpoint.method.as_str() {
             "GET" => r#"<span class="method-badge get">GET</span>"#,
             "POST" => r#"<span class="method-badge post">POST</span>"#,
@@ -106,7 +178,7 @@ async fn api_docs_html() -> Html<String> {
             .unwrap_or_default();
         
         format!(r#"
-            <div class="endpoint-card">
+            <div class="endpoint-card" id="{}">
                 <div class="endpoint-header">
                     {} <code class="path">{}</code>
                 </div>
@@ -117,8 +189,8 @@ async fn api_docs_html() -> Html<String> {
                 </div>
                 {}
             </div>
-        "#, method_badge, endpoint.path, endpoint.description, endpoint.example_response, performance_html)
-    }).collect();
+        "#, id, method_badge, endpoint.path, endpoint.description, endpoint.example_response, performance_html)
+    }
     
     let html = format!(r#"
 <!DOCTYPE html>
@@ -137,22 +209,73 @@ async fn api_docs_html() -> Html<String> {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 2rem;
             color: #333;
         }}
         .container {{
-            max-width: 900px;
+            display: flex;
+            max-width: 1400px;
             margin: 0 auto;
             background: white;
-            border-radius: 12px;
+            min-height: 100vh;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            overflow: hidden;
+        }}
+        .sidebar {{
+            width: 280px;
+            background: #f8f9fa;
+            border-right: 1px solid #e0e0e0;
+            padding: 2rem 0;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }}
+        .sidebar-header {{
+            padding: 0 1.5rem 1.5rem;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 1rem;
+        }}
+        .sidebar-header h2 {{
+            font-size: 1.25rem;
+            color: #667eea;
+            margin-bottom: 0.25rem;
+        }}
+        .sidebar-header .version {{
+            font-size: 0.875rem;
+            color: #666;
+        }}
+        .nav-category {{
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: #999;
+            padding: 1rem 1.5rem 0.5rem;
+            letter-spacing: 0.5px;
+        }}
+        .nav-item {{
+            display: block;
+            padding: 0.5rem 1.5rem;
+            color: #333;
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: background 0.2s, color 0.2s;
+            border-left: 3px solid transparent;
+        }}
+        .nav-item:hover {{
+            background: #f0f0f0;
+            color: #667eea;
+            border-left-color: #667eea;
+        }}
+        .main-content {{
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
         }}
         .header {{
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 2rem;
             text-align: center;
+            margin: -2rem -2rem 2rem -2rem;
         }}
         .header h1 {{
             font-size: 2rem;
@@ -162,8 +285,15 @@ async fn api_docs_html() -> Html<String> {
             opacity: 0.9;
             font-size: 1rem;
         }}
-        .content {{
-            padding: 2rem;
+        .section-title {{
+            font-size: 1.5rem;
+            color: #333;
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #667eea;
+        }}
+        .section-title:first-child {{
+            margin-top: 0;
         }}
         .endpoint-card {{
             border: 1px solid #e0e0e0;
@@ -263,21 +393,29 @@ async fn api_docs_html() -> Html<String> {
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>{}</h1>
-            <div class="version">Version {}</div>
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>{}</h2>
+                <div class="version">v{}</div>
+            </div>
+            <nav>
+                {}
+            </nav>
         </div>
-        <div class="content">
+        <div class="main-content">
+            <div class="header">
+                <h1>{}</h1>
+                <div class="version">Version {}</div>
+            </div>
             <div class="base-url">
                 Base URL: <code>{}</code>
             </div>
-            <h2 style="margin-bottom: 1.5rem; color: #333;">API Endpoints</h2>
             {}
         </div>
     </div>
 </body>
 </html>
-    "#, docs.name, docs.name, docs.version, docs.base_url, endpoints_html);
+    "#, docs.name, docs.name, docs.version, sidebar_items, docs.name, docs.version, docs.base_url, endpoints_html);
     
     Html(html)
 }
