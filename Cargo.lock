@@ -2626,7 +2626,6 @@ version = "0.1.0"
 dependencies = [
  "axum",
  "ethers",
- "hex",
  "serde",
  "serde_json",
  "tokio",
