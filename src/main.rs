@@ -820,10 +820,6 @@ async fn marketing_page() -> Html<String> {
         <div class="hero">
             <h1>RUSTful</h1>
             <p class="hero-tagline">Ultra-fast HTTP built with Rust</p>
-            <ul class="hero-bullets">
-                <li>Sub-100ms response times</li>
-                <li>Enterprise-grade performance</li>
-            </ul>
             <a href="/marketing" class="cta-button">Launch App</a>
         </div>
     </div>
