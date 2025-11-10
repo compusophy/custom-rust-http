@@ -200,194 +200,321 @@ async fn api_docs_html() -> Html<String> {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{} - API Documentation</title>
     <style>
+        /* ============================================
+           BRUTALIST MONOCHROME DESIGN SYSTEM
+           Minimalist | Monospace | Geometric | Stark
+           ============================================ */
+        
+        /* RESET & BASE */
         * {{
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }}
-        body {{
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            color: #333;
+        
+        /* TYPOGRAPHY - MONOSPACE ONLY */
+        body, html {{
+            font-family: 'Courier New', 'Monaco', 'Menlo', 'Consolas', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }}
+        
+        /* COLOR PALETTE - MONOCHROME */
+        :root {{
+            --black: #000000;
+            --white: #FFFFFF;
+            --gray-100: #F5F5F5;
+            --gray-200: #E5E5E5;
+            --gray-300: #CCCCCC;
+            --gray-400: #999999;
+            --gray-500: #666666;
+            --gray-600: #333333;
+            --gray-700: #1A1A1A;
+            --gray-800: #0D0D0D;
+        }}
+        
+        /* BASE LAYOUT */
+        body {{
+            background: var(--white);
+            color: var(--black);
+            min-height: 100vh;
+        }}
+        
+        /* CONTAINER - BRUTALIST GEOMETRY */
         .container {{
             display: flex;
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
-            background: white;
+            background: var(--white);
             min-height: 100vh;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            border-left: 4px solid var(--black);
+            border-right: 4px solid var(--black);
         }}
+        
+        /* SIDEBAR - STARK GEOMETRY */
         .sidebar {{
-            width: 280px;
-            background: #f8f9fa;
-            border-right: 1px solid #e0e0e0;
-            padding: 2rem 0;
+            width: 300px;
+            background: var(--gray-100);
+            border-right: 4px solid var(--black);
+            padding: 0;
             position: sticky;
             top: 0;
             height: 100vh;
             overflow-y: auto;
         }}
+        
         .sidebar-header {{
-            padding: 0 1.5rem 1.5rem;
-            border-bottom: 1px solid #e0e0e0;
-            margin-bottom: 1rem;
+            padding: 24px;
+            border-bottom: 4px solid var(--black);
+            background: var(--black);
+            color: var(--white);
         }}
+        
         .sidebar-header h2 {{
-            font-size: 1.25rem;
-            color: #667eea;
-            margin-bottom: 0.25rem;
-        }}
-        .sidebar-header .version {{
-            font-size: 0.875rem;
-            color: #666;
-        }}
-        .nav-category {{
-            font-weight: 600;
-            font-size: 0.75rem;
+            font-size: 16px;
+            font-weight: bold;
             text-transform: uppercase;
-            color: #999;
-            padding: 1rem 1.5rem 0.5rem;
-            letter-spacing: 0.5px;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
         }}
+        
+        .sidebar-header .version {{
+            font-size: 12px;
+            color: var(--gray-300);
+            letter-spacing: 1px;
+        }}
+        
+        /* NAVIGATION - BRUTALIST LINKS */
+        .nav-category {{
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--black);
+            padding: 16px 24px 8px;
+            background: var(--white);
+            border-bottom: 2px solid var(--black);
+        }}
+        
         .nav-item {{
             display: block;
-            padding: 0.5rem 1.5rem;
-            color: #333;
+            padding: 12px 24px;
+            color: var(--black);
             text-decoration: none;
-            font-size: 0.875rem;
-            transition: background 0.2s, color 0.2s;
-            border-left: 3px solid transparent;
+            font-size: 13px;
+            border-left: 4px solid transparent;
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-200);
+            transition: none;
         }}
+        
         .nav-item:hover {{
-            background: #f0f0f0;
-            color: #667eea;
-            border-left-color: #667eea;
+            background: var(--black);
+            color: var(--white);
+            border-left-color: var(--black);
         }}
+        
+        /* MAIN CONTENT */
         .main-content {{
             flex: 1;
-            padding: 2rem;
+            padding: 0;
             overflow-y: auto;
+            background: var(--white);
         }}
+        
+        /* HEADER - BRUTALIST BANNER */
         .header {{
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 2rem;
-            text-align: center;
-            margin: -2rem -2rem 2rem -2rem;
+            background: var(--black);
+            color: var(--white);
+            padding: 32px;
+            text-align: left;
+            border-bottom: 4px solid var(--black);
         }}
+        
         .header h1 {{
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 8px;
         }}
+        
         .header .version {{
-            opacity: 0.9;
-            font-size: 1rem;
+            font-size: 12px;
+            color: var(--gray-300);
+            letter-spacing: 2px;
         }}
+        
+        /* SECTIONS */
         .section-title {{
-            font-size: 1.5rem;
-            color: #333;
-            margin: 2rem 0 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid #667eea;
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--black);
+            margin: 0;
+            padding: 24px 32px;
+            border-bottom: 4px solid var(--black);
+            background: var(--gray-100);
         }}
-        .section-title:first-child {{
-            margin-top: 0;
+        
+        /* BASE URL BOX */
+        .base-url {{
+            background: var(--black);
+            color: var(--white);
+            padding: 16px 32px;
+            border-bottom: 4px solid var(--black);
         }}
+        
+        .base-url code {{
+            font-size: 13px;
+            letter-spacing: 1px;
+            color: var(--white);
+        }}
+        
+        /* ENDPOINT CARDS - BRUTALIST BOXES */
         .endpoint-card {{
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            transition: transform 0.2s, box-shadow 0.2s;
+            border: 4px solid var(--black);
+            padding: 24px 32px;
+            margin: 0;
+            background: var(--white);
+            border-top: none;
         }}
-        .endpoint-card:hover {{
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        
+        .endpoint-card:last-child {{
+            border-bottom: 4px solid var(--black);
         }}
+        
         .endpoint-header {{
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1rem;
+            gap: 16px;
+            margin-bottom: 16px;
         }}
+        
+        /* METHOD BADGES - MONOCHROME */
         .method-badge {{
-            padding: 0.25rem 0.75rem;
-            border-radius: 4px;
-            font-weight: 600;
-            font-size: 0.875rem;
+            padding: 4px 12px;
+            font-weight: bold;
+            font-size: 11px;
             text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid var(--black);
+            background: var(--white);
+            color: var(--black);
         }}
+        
         .method-badge.get {{
-            background: #10b981;
-            color: white;
+            background: var(--black);
+            color: var(--white);
         }}
+        
         .method-badge.post {{
-            background: #3b82f6;
-            color: white;
+            background: var(--white);
+            color: var(--black);
+            border: 2px solid var(--black);
         }}
+        
         .method-badge.put {{
-            background: #f59e0b;
-            color: white;
+            background: var(--gray-500);
+            color: var(--white);
         }}
+        
         .method-badge.delete {{
-            background: #ef4444;
-            color: white;
+            background: var(--black);
+            color: var(--white);
         }}
+        
+        /* PATH - MONOSPACE CODE */
         .path {{
-            background: #f3f4f6;
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-            font-family: 'Monaco', 'Courier New', monospace;
-            font-size: 0.9rem;
-            color: #667eea;
+            background: var(--gray-100);
+            padding: 4px 8px;
+            font-size: 13px;
+            color: var(--black);
+            border: 2px solid var(--black);
+            letter-spacing: 0.5px;
         }}
+        
+        /* DESCRIPTION */
         .description {{
-            color: #666;
-            margin-bottom: 1rem;
+            color: var(--gray-600);
+            margin-bottom: 16px;
             line-height: 1.6;
+            font-size: 13px;
         }}
+        
+        /* EXAMPLE BOXES */
         .example {{
-            background: #f9fafb;
-            border-left: 3px solid #667eea;
-            padding: 1rem;
-            border-radius: 4px;
-            margin-top: 1rem;
+            background: var(--gray-100);
+            border: 4px solid var(--black);
+            padding: 16px;
+            margin-top: 16px;
         }}
+        
         .example strong {{
             display: block;
-            margin-bottom: 0.5rem;
-            color: #333;
+            margin-bottom: 12px;
+            color: var(--black);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }}
+        
         .example pre {{
-            background: #1e293b;
-            color: #e2e8f0;
-            padding: 1rem;
-            border-radius: 4px;
+            background: var(--black);
+            color: var(--white);
+            padding: 16px;
+            border: 2px solid var(--black);
             overflow-x: auto;
-            font-size: 0.875rem;
+            font-size: 12px;
+            line-height: 1.5;
         }}
+        
         .example code {{
-            font-family: 'Monaco', 'Courier New', monospace;
+            font-family: 'Courier New', 'Monaco', 'Menlo', 'Consolas', monospace;
         }}
+        
+        /* PERFORMANCE METRIC */
         .performance {{
-            margin-top: 0.75rem;
-            color: #10b981;
-            font-weight: 500;
-            font-size: 0.875rem;
+            margin-top: 16px;
+            color: var(--black);
+            font-weight: bold;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }}
-        .base-url {{
-            background: #f3f4f6;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 2rem;
-            text-align: center;
+        
+        /* UTILITY CLASSES */
+        h1, h2, h3, h4, h5, h6 {{
+            font-family: 'Courier New', 'Monaco', 'Menlo', 'Consolas', monospace;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }}
-        .base-url code {{
-            color: #667eea;
-            font-size: 1.1rem;
-            font-weight: 600;
+        
+        code {{
+            font-family: 'Courier New', 'Monaco', 'Menlo', 'Consolas', monospace;
+        }}
+        
+        /* SCROLLBAR - BRUTALIST */
+        ::-webkit-scrollbar {{
+            width: 12px;
+        }}
+        
+        ::-webkit-scrollbar-track {{
+            background: var(--white);
+            border-left: 2px solid var(--black);
+        }}
+        
+        ::-webkit-scrollbar-thumb {{
+            background: var(--black);
+            border: 2px solid var(--white);
+        }}
+        
+        ::-webkit-scrollbar-thumb:hover {{
+            background: var(--gray-600);
         }}
     </style>
 </head>
