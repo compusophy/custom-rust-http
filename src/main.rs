@@ -64,10 +64,10 @@ async fn api_docs_json() -> Json<ApiDocs> {
             ApiEndpoint {
                 path: "/api/getCurrentBlock".to_string(),
                 method: "GET".to_string(),
-                description: "Returns the current Base mainnet block number. Uses WebSocket streaming for sub-100ms response times.".to_string(),
+                description: "Returns the current Base mainnet block number.".to_string(),
                 example_request: None,
                 example_response: r#"{"block_number":"0x241337e","block_number_decimal":37827454}"#.to_string(),
-                performance: Some("~35-70ms (WebSocket cached)".to_string()),
+                performance: None,
             },
             ApiEndpoint {
                 path: "/api/docs".to_string(),
