@@ -35,8 +35,21 @@ A brutalist dark mode design system built on the principles of:
 
 **Font Stack:**
 ```css
-font-family: 'Courier New', 'Monaco', 'Menlo', 'Consolas', monospace;
+font-family: 'IBM Plex Mono', 'Courier New', 'Monaco', 'Menlo', 'Consolas', monospace;
 ```
+
+**Font Loading:**
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+```
+
+**Weights Available:**
+- 400 (Regular)
+- 500 (Medium)
+- 600 (Semi-bold)
+- 700 (Bold)
 
 **Scale:**
 - Base: 14px
@@ -87,7 +100,7 @@ font-family: 'Courier New', 'Monaco', 'Menlo', 'Consolas', monospace;
     border: 4px solid var(--matrix-green);
     background: var(--black);
     color: var(--matrix-green);
-    font-family: monospace;
+    font-family: 'IBM Plex Mono', monospace;
     font-size: 13px;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -117,7 +130,7 @@ font-family: 'Courier New', 'Monaco', 'Menlo', 'Consolas', monospace;
     border: 4px solid var(--matrix-green);
     background: var(--dark);
     color: var(--matrix-green);
-    font-family: monospace;
+    font-family: 'IBM Plex Mono', monospace;
     font-size: 13px;
 }
 ```
@@ -129,7 +142,7 @@ code {
     color: var(--matrix-green);
     padding: 16px;
     border: 2px solid var(--matrix-green);
-    font-family: monospace;
+    font-family: 'IBM Plex Mono', monospace;
     font-size: 12px;
 }
 ```

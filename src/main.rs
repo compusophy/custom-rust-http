@@ -198,6 +198,9 @@ async fn api_docs_html() -> Html<String> {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <title>{} - API Documentation</title>
     <style>
         /* ============================================
@@ -212,9 +215,9 @@ async fn api_docs_html() -> Html<String> {
             box-sizing: border-box;
         }}
         
-        /* TYPOGRAPHY - MONOSPACE ONLY */
+        /* TYPOGRAPHY - IBM PLEX MONO */
         body, html {{
-            font-family: 'Courier New', 'Monaco', 'Menlo', 'Consolas', monospace;
+            font-family: 'IBM Plex Mono', 'Courier New', 'Monaco', 'Menlo', 'Consolas', monospace;
             font-size: 14px;
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
@@ -472,7 +475,7 @@ async fn api_docs_html() -> Html<String> {
         }}
         
         .example code {{
-            font-family: 'Courier New', 'Monaco', 'Menlo', 'Consolas', monospace;
+            font-family: 'IBM Plex Mono', 'Courier New', 'Monaco', 'Menlo', 'Consolas', monospace;
         }}
         
         /* PERFORMANCE METRIC */
@@ -487,14 +490,14 @@ async fn api_docs_html() -> Html<String> {
         
         /* UTILITY CLASSES */
         h1, h2, h3, h4, h5, h6 {{
-            font-family: 'Courier New', 'Monaco', 'Menlo', 'Consolas', monospace;
+            font-family: 'IBM Plex Mono', 'Courier New', 'Monaco', 'Menlo', 'Consolas', monospace;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 2px;
         }}
         
         code {{
-            font-family: 'Courier New', 'Monaco', 'Menlo', 'Consolas', monospace;
+            font-family: 'IBM Plex Mono', 'Courier New', 'Monaco', 'Menlo', 'Consolas', monospace;
         }}
         
         /* SCROLLBAR - MATRIX STYLE */
