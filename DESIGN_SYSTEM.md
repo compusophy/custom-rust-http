@@ -1,34 +1,35 @@
-# BRUTALIST MONOCHROME DESIGN SYSTEM
+# BRUTALIST DARK MODE DESIGN SYSTEM
 
 ## Philosophy
 
-**Minimalist | Monospace | Geometric | Stark**
+**Minimalist | Monospace | Geometric | Stark | Matrix**
 
-A brutalist design system built on the principles of:
+A brutalist dark mode design system built on the principles of:
 - **Brutalism**: Raw, bold, geometric forms with no decoration
-- **Monochrome**: Black, white, and grays only
+- **Dark Mode**: Black backgrounds with Matrix green accents
 - **Monospace**: Courier New/Monaco/Menlo fonts throughout
 - **Minimalism**: Clean, functional, no unnecessary elements
+- **Hacker Aesthetic**: Matrix green on black terminal-style
 
 ## Color Palette
 
 ```css
---black: #000000      /* Primary text, borders, backgrounds */
---white: #FFFFFF      /* Background, inverse text */
---gray-100: #F5F5F5   /* Light backgrounds */
---gray-200: #E5E5E5   /* Borders, dividers */
---gray-300: #CCCCCC   /* Secondary text */
---gray-400: #999999   /* Muted text */
---gray-500: #666666   /* Medium gray */
---gray-600: #333333   /* Dark text */
---gray-700: #1A1A1A   /* Very dark */
---gray-800: #0D0D0D   /* Near black */
+--black: #000000              /* Primary background */
+--dark: #0A0A0A               /* Dark backgrounds */
+--dark-gray: #1A1A1A          /* Medium dark */
+--medium-gray: #2A2A2A        /* Lighter dark */
+--light-gray: #3A3A3A         /* Light dark */
+--white: #FFFFFF              /* Rarely used */
+--matrix-green: #00FF41        /* Primary accent - Matrix green */
+--matrix-green-dark: #00CC33   /* Darker green for secondary text */
+--matrix-green-bright: #00FF88 /* Bright green for highlights */
 ```
 
 **Rules:**
 - Never use colors outside this palette
 - No gradients, shadows, or effects
-- High contrast only (black on white, white on black)
+- High contrast only (Matrix green on black)
+- Dark backgrounds with green accents
 
 ## Typography
 
@@ -83,9 +84,9 @@ font-family: 'Courier New', 'Monaco', 'Menlo', 'Consolas', monospace;
 ```css
 .button {
     padding: 12px 24px;
-    border: 4px solid var(--black);
-    background: var(--white);
-    color: var(--black);
+    border: 4px solid var(--matrix-green);
+    background: var(--black);
+    color: var(--matrix-green);
     font-family: monospace;
     font-size: 13px;
     text-transform: uppercase;
@@ -94,17 +95,18 @@ font-family: 'Courier New', 'Monaco', 'Menlo', 'Consolas', monospace;
 }
 
 .button:hover {
-    background: var(--black);
-    color: var(--white);
+    background: var(--matrix-green);
+    color: var(--black);
 }
 ```
 
 ### Cards/Boxes
 ```css
 .card {
-    border: 4px solid var(--black);
+    border: 4px solid var(--matrix-green);
     padding: 24px 32px;
-    background: var(--white);
+    background: var(--black);
+    color: var(--matrix-green);
 }
 ```
 
@@ -112,9 +114,9 @@ font-family: 'Courier New', 'Monaco', 'Menlo', 'Consolas', monospace;
 ```css
 .input {
     padding: 12px 16px;
-    border: 4px solid var(--black);
-    background: var(--white);
-    color: var(--black);
+    border: 4px solid var(--matrix-green);
+    background: var(--dark);
+    color: var(--matrix-green);
     font-family: monospace;
     font-size: 13px;
 }
@@ -124,9 +126,9 @@ font-family: 'Courier New', 'Monaco', 'Menlo', 'Consolas', monospace;
 ```css
 code {
     background: var(--black);
-    color: var(--white);
+    color: var(--matrix-green);
     padding: 16px;
-    border: 2px solid var(--black);
+    border: 2px solid var(--matrix-green);
     font-family: monospace;
     font-size: 12px;
 }
@@ -164,19 +166,23 @@ code {
 ### ✅ DO:
 - Use monospace fonts everywhere
 - Use 4px border increments
-- Maintain high contrast
+- Maintain high contrast (Matrix green on black)
 - Use uppercase for headings
 - Keep spacing consistent
 - Use geometric shapes only
+- Use dark backgrounds with green accents
+- Keep the hacker/terminal aesthetic
 
 ### ❌ DON'T:
-- Use colors outside the palette
-- Add border-radius
+- Use colors outside the palette (especially no bright colors except Matrix green)
+- Add border-radius (sharp corners only)
 - Use shadows or gradients
 - Mix font families
 - Use lowercase headings
 - Add animations or transitions
 - Use decorative elements
+- Use white backgrounds (too bright/shocking)
+- Use colors other than black, dark grays, and Matrix green
 
 ## Implementation
 

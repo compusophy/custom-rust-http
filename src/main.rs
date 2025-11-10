@@ -221,24 +221,23 @@ async fn api_docs_html() -> Html<String> {
             -moz-osx-font-smoothing: grayscale;
         }}
         
-        /* COLOR PALETTE - MONOCHROME */
+        /* COLOR PALETTE - DARK MODE WITH MATRIX GREEN */
         :root {{
             --black: #000000;
+            --dark: #0A0A0A;
+            --dark-gray: #1A1A1A;
+            --medium-gray: #2A2A2A;
+            --light-gray: #3A3A3A;
             --white: #FFFFFF;
-            --gray-100: #F5F5F5;
-            --gray-200: #E5E5E5;
-            --gray-300: #CCCCCC;
-            --gray-400: #999999;
-            --gray-500: #666666;
-            --gray-600: #333333;
-            --gray-700: #1A1A1A;
-            --gray-800: #0D0D0D;
+            --matrix-green: #00FF41;
+            --matrix-green-dark: #00CC33;
+            --matrix-green-bright: #00FF88;
         }}
         
-        /* BASE LAYOUT */
+        /* BASE LAYOUT - DARK MODE */
         body {{
-            background: var(--white);
-            color: var(--black);
+            background: var(--black);
+            color: var(--matrix-green);
             min-height: 100vh;
         }}
         
@@ -247,17 +246,17 @@ async fn api_docs_html() -> Html<String> {
             display: flex;
             max-width: 1600px;
             margin: 0 auto;
-            background: var(--white);
+            background: var(--black);
             min-height: 100vh;
-            border-left: 4px solid var(--black);
-            border-right: 4px solid var(--black);
+            border-left: 4px solid var(--matrix-green);
+            border-right: 4px solid var(--matrix-green);
         }}
         
         /* SIDEBAR - STARK GEOMETRY */
         .sidebar {{
             width: 300px;
-            background: var(--gray-100);
-            border-right: 4px solid var(--black);
+            background: var(--dark);
+            border-right: 4px solid var(--matrix-green);
             padding: 0;
             position: sticky;
             top: 0;
@@ -267,9 +266,9 @@ async fn api_docs_html() -> Html<String> {
         
         .sidebar-header {{
             padding: 24px;
-            border-bottom: 4px solid var(--black);
+            border-bottom: 4px solid var(--matrix-green);
             background: var(--black);
-            color: var(--white);
+            color: var(--matrix-green);
         }}
         
         .sidebar-header h2 {{
@@ -282,7 +281,7 @@ async fn api_docs_html() -> Html<String> {
         
         .sidebar-header .version {{
             font-size: 12px;
-            color: var(--gray-300);
+            color: var(--matrix-green-dark);
             letter-spacing: 1px;
         }}
         
@@ -292,28 +291,28 @@ async fn api_docs_html() -> Html<String> {
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 2px;
-            color: var(--black);
+            color: var(--matrix-green);
             padding: 16px 24px 8px;
-            background: var(--white);
-            border-bottom: 2px solid var(--black);
+            background: var(--dark);
+            border-bottom: 2px solid var(--matrix-green);
         }}
         
         .nav-item {{
             display: block;
             padding: 12px 24px;
-            color: var(--black);
+            color: var(--matrix-green-dark);
             text-decoration: none;
             font-size: 13px;
             border-left: 4px solid transparent;
-            background: var(--white);
-            border-bottom: 1px solid var(--gray-200);
+            background: var(--dark);
+            border-bottom: 1px solid var(--dark-gray);
             transition: none;
         }}
         
         .nav-item:hover {{
             background: var(--black);
-            color: var(--white);
-            border-left-color: var(--black);
+            color: var(--matrix-green);
+            border-left-color: var(--matrix-green);
         }}
         
         /* MAIN CONTENT */
@@ -321,16 +320,16 @@ async fn api_docs_html() -> Html<String> {
             flex: 1;
             padding: 0;
             overflow-y: auto;
-            background: var(--white);
+            background: var(--black);
         }}
         
         /* HEADER - BRUTALIST BANNER */
         .header {{
             background: var(--black);
-            color: var(--white);
+            color: var(--matrix-green);
             padding: 32px;
             text-align: left;
-            border-bottom: 4px solid var(--black);
+            border-bottom: 4px solid var(--matrix-green);
         }}
         
         .header h1 {{
@@ -343,7 +342,7 @@ async fn api_docs_html() -> Html<String> {
         
         .header .version {{
             font-size: 12px;
-            color: var(--gray-300);
+            color: var(--matrix-green-dark);
             letter-spacing: 2px;
         }}
         
@@ -353,38 +352,38 @@ async fn api_docs_html() -> Html<String> {
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 2px;
-            color: var(--black);
+            color: var(--matrix-green);
             margin: 0;
             padding: 24px 32px;
-            border-bottom: 4px solid var(--black);
-            background: var(--gray-100);
+            border-bottom: 4px solid var(--matrix-green);
+            background: var(--dark);
         }}
         
         /* BASE URL BOX */
         .base-url {{
-            background: var(--black);
-            color: var(--white);
+            background: var(--dark);
+            color: var(--matrix-green);
             padding: 16px 32px;
-            border-bottom: 4px solid var(--black);
+            border-bottom: 4px solid var(--matrix-green);
         }}
         
         .base-url code {{
             font-size: 13px;
             letter-spacing: 1px;
-            color: var(--white);
+            color: var(--matrix-green);
         }}
         
         /* ENDPOINT CARDS - BRUTALIST BOXES */
         .endpoint-card {{
-            border: 4px solid var(--black);
+            border: 4px solid var(--matrix-green);
             padding: 24px 32px;
             margin: 0;
-            background: var(--white);
+            background: var(--black);
             border-top: none;
         }}
         
         .endpoint-card:last-child {{
-            border-bottom: 4px solid var(--black);
+            border-bottom: 4px solid var(--matrix-green);
         }}
         
         .endpoint-header {{
@@ -394,52 +393,52 @@ async fn api_docs_html() -> Html<String> {
             margin-bottom: 16px;
         }}
         
-        /* METHOD BADGES - MONOCHROME */
+        /* METHOD BADGES - MATRIX STYLE */
         .method-badge {{
             padding: 4px 12px;
             font-weight: bold;
             font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            border: 2px solid var(--black);
-            background: var(--white);
-            color: var(--black);
+            border: 2px solid var(--matrix-green);
+            background: var(--black);
+            color: var(--matrix-green);
         }}
         
         .method-badge.get {{
-            background: var(--black);
-            color: var(--white);
+            background: var(--matrix-green);
+            color: var(--black);
         }}
         
         .method-badge.post {{
-            background: var(--white);
-            color: var(--black);
-            border: 2px solid var(--black);
+            background: var(--black);
+            color: var(--matrix-green);
+            border: 2px solid var(--matrix-green);
         }}
         
         .method-badge.put {{
-            background: var(--gray-500);
-            color: var(--white);
+            background: var(--dark-gray);
+            color: var(--matrix-green);
         }}
         
         .method-badge.delete {{
-            background: var(--black);
-            color: var(--white);
+            background: var(--matrix-green-dark);
+            color: var(--black);
         }}
         
         /* PATH - MONOSPACE CODE */
         .path {{
-            background: var(--gray-100);
+            background: var(--dark);
             padding: 4px 8px;
             font-size: 13px;
-            color: var(--black);
-            border: 2px solid var(--black);
+            color: var(--matrix-green);
+            border: 2px solid var(--matrix-green);
             letter-spacing: 0.5px;
         }}
         
         /* DESCRIPTION */
         .description {{
-            color: var(--gray-600);
+            color: var(--matrix-green-dark);
             margin-bottom: 16px;
             line-height: 1.6;
             font-size: 13px;
@@ -447,8 +446,8 @@ async fn api_docs_html() -> Html<String> {
         
         /* EXAMPLE BOXES */
         .example {{
-            background: var(--gray-100);
-            border: 4px solid var(--black);
+            background: var(--dark);
+            border: 4px solid var(--matrix-green);
             padding: 16px;
             margin-top: 16px;
         }}
@@ -456,7 +455,7 @@ async fn api_docs_html() -> Html<String> {
         .example strong {{
             display: block;
             margin-bottom: 12px;
-            color: var(--black);
+            color: var(--matrix-green);
             font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -464,9 +463,9 @@ async fn api_docs_html() -> Html<String> {
         
         .example pre {{
             background: var(--black);
-            color: var(--white);
+            color: var(--matrix-green);
             padding: 16px;
-            border: 2px solid var(--black);
+            border: 2px solid var(--matrix-green);
             overflow-x: auto;
             font-size: 12px;
             line-height: 1.5;
@@ -479,7 +478,7 @@ async fn api_docs_html() -> Html<String> {
         /* PERFORMANCE METRIC */
         .performance {{
             margin-top: 16px;
-            color: var(--black);
+            color: var(--matrix-green-bright);
             font-weight: bold;
             font-size: 11px;
             text-transform: uppercase;
@@ -498,23 +497,23 @@ async fn api_docs_html() -> Html<String> {
             font-family: 'Courier New', 'Monaco', 'Menlo', 'Consolas', monospace;
         }}
         
-        /* SCROLLBAR - BRUTALIST */
+        /* SCROLLBAR - MATRIX STYLE */
         ::-webkit-scrollbar {{
             width: 12px;
         }}
         
         ::-webkit-scrollbar-track {{
-            background: var(--white);
-            border-left: 2px solid var(--black);
+            background: var(--black);
+            border-left: 2px solid var(--matrix-green);
         }}
         
         ::-webkit-scrollbar-thumb {{
-            background: var(--black);
-            border: 2px solid var(--white);
+            background: var(--matrix-green);
+            border: 2px solid var(--black);
         }}
         
         ::-webkit-scrollbar-thumb:hover {{
-            background: var(--gray-600);
+            background: var(--matrix-green-bright);
         }}
     </style>
 </head>
