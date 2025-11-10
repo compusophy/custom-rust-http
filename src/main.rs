@@ -42,6 +42,7 @@ struct AppState {
 }
 
 async fn marco() -> Json<PoloResponse> {
+    println!("[API] /api/marco endpoint called");
     Json(PoloResponse {
         message: "polo".to_string(),
     })
@@ -820,9 +821,210 @@ async fn marketing_page() -> Html<String> {
         <div class="hero">
             <h1>RUSTful</h1>
             <p class="hero-tagline">Ultra-fast HTTP built with Rust</p>
-            <a href="/marketing" class="cta-button">Launch App</a>
+            <a href="/app" class="cta-button">Launch App</a>
         </div>
     </div>
+</body>
+</html>
+    "#);
+    
+    Html(html)
+}
+
+async fn app_page() -> Html<String> {
+    let html = format!(r#"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>RUSTful - App</title>
+    <style>
+        * {{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }}
+        
+        body, html {{
+            font-family: 'IBM Plex Mono', 'Courier New', 'Monaco', 'Menlo', 'Consolas', monospace;
+            font-size: 15px;
+            line-height: 1.7;
+            letter-spacing: 0.3px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-weight: 400;
+            background: var(--black);
+            color: var(--green-primary);
+            min-height: 100vh;
+        }}
+        
+        :root {{
+            --black: #000000;
+            --dark: #0A0A0A;
+            --dark-gray: #1A1A1A;
+            --green-primary: #00D977;
+            --green-secondary: #00B366;
+            --green-accent: #00FF88;
+            --green-glow: rgba(0, 217, 119, 0.5);
+        }}
+        
+        .container {{
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            border-left: 4px solid var(--green-primary);
+            border-right: 4px solid var(--green-primary);
+            box-shadow: 0 0 20px var(--green-glow);
+        }}
+        
+        .nav {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 32px;
+            border-bottom: 4px solid var(--green-primary);
+            background: var(--black);
+        }}
+        
+        .nav-brand {{
+            font-size: 24px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--green-primary);
+            text-shadow: 0 0 15px var(--green-glow);
+            text-decoration: none;
+        }}
+        
+        .nav-link {{
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--green-secondary);
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 2px solid var(--green-primary);
+            transition: all 0.2s ease;
+        }}
+        
+        .nav-link:hover {{
+            background: var(--green-primary);
+            color: var(--black);
+            text-shadow: none;
+        }}
+        
+        .app-content {{
+            flex: 1;
+            padding: 60px 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }}
+        
+        .marco-button {{
+            padding: 20px 48px;
+            font-size: 18px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 4px solid var(--green-primary);
+            background: var(--black);
+            color: var(--green-primary);
+            text-shadow: 0 0 10px var(--green-glow);
+            transition: all 0.2s ease;
+            cursor: pointer;
+            font-family: 'IBM Plex Mono', monospace;
+            margin-bottom: 32px;
+        }}
+        
+        .marco-button:hover {{
+            background: var(--green-primary);
+            color: var(--black);
+            text-shadow: none;
+            box-shadow: 0 0 30px var(--green-glow);
+        }}
+        
+        .marco-button:active {{
+            transform: scale(0.98);
+        }}
+        
+        .response-box {{
+            width: 100%;
+            max-width: 600px;
+            padding: 24px;
+            border: 4px solid var(--green-primary);
+            background: var(--dark);
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }}
+        
+        .response-text {{
+            color: var(--green-primary);
+            font-size: 16px;
+            text-shadow: 0 0 8px var(--green-glow);
+            word-break: break-all;
+        }}
+        
+        .response-text.loading {{
+            color: var(--green-secondary);
+        }}
+        
+        ::selection {{
+            background: var(--green-primary);
+            color: var(--black);
+        }}
+        
+        ::-moz-selection {{
+            background: var(--green-primary);
+            color: var(--black);
+        }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="nav">
+            <a href="/marketing" class="nav-brand">RUSTful</a>
+            <a href="/docs" class="nav-link">Docs</a>
+        </nav>
+        <div class="app-content">
+            <button class="marco-button" onclick="callMarco()">Marco</button>
+            <div class="response-box">
+                <div class="response-text" id="response">Click Marco to test API</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        async function callMarco() {{
+            console.log('[CLIENT] Marco button clicked, calling /api/marco...');
+            const responseEl = document.getElementById('response');
+            responseEl.textContent = 'Loading...';
+            responseEl.className = 'response-text loading';
+            
+            try {{
+                console.log('[CLIENT] Fetching /api/marco...');
+                const response = await fetch('/api/marco');
+                console.log('[CLIENT] Response status:', response.status);
+                const data = await response.json();
+                console.log('[CLIENT] Response data:', data);
+                responseEl.textContent = JSON.stringify(data, null, 2);
+                responseEl.className = 'response-text';
+            }} catch (error) {{
+                console.error('[CLIENT] Error calling API:', error);
+                responseEl.textContent = 'Error: ' + error.message;
+                responseEl.className = 'response-text';
+            }}
+        }}
+    </script>
 </body>
 </html>
     "#);
@@ -924,6 +1126,7 @@ async fn main() {
     let app = Router::new()
         .route("/", get(marketing_page))
         .route("/marketing", get(marketing_page))
+        .route("/app", get(app_page))
         .route("/api/marco", get(marco))
         .route("/api/getCurrentBlock", get({
             let state = app_state.clone();
