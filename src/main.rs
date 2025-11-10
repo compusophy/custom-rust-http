@@ -215,16 +215,18 @@ async fn api_docs_html() -> Html<String> {
             box-sizing: border-box;
         }}
         
-        /* TYPOGRAPHY - IBM PLEX MONO */
+        /* TYPOGRAPHY - IBM PLEX MONO - WORLD CLASS READABILITY */
         body, html {{
             font-family: 'IBM Plex Mono', 'Courier New', 'Monaco', 'Menlo', 'Consolas', monospace;
-            font-size: 14px;
-            line-height: 1.5;
+            font-size: 15px;
+            line-height: 1.7;
+            letter-spacing: 0.3px;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            font-weight: 400;
         }}
         
-        /* COLOR PALETTE - DARK MODE WITH MATRIX GREEN */
+        /* COLOR PALETTE - DARK MODE WITH GLOWY GREEN */
         :root {{
             --black: #000000;
             --dark: #0A0A0A;
@@ -232,15 +234,16 @@ async fn api_docs_html() -> Html<String> {
             --medium-gray: #2A2A2A;
             --light-gray: #3A3A3A;
             --white: #FFFFFF;
-            --matrix-green: #00FF41;
-            --matrix-green-dark: #00CC33;
-            --matrix-green-bright: #00FF88;
+            --green-primary: #00D977;      /* Darker, more opaque green */
+            --green-secondary: #00B366;    /* Even darker for secondary text */
+            --green-accent: #00FF88;       /* Brighter for accents only */
+            --green-glow: rgba(0, 217, 119, 0.5);  /* Glow effect */
         }}
         
         /* BASE LAYOUT - DARK MODE */
         body {{
             background: var(--black);
-            color: var(--matrix-green);
+            color: var(--green-primary);
             min-height: 100vh;
         }}
         
@@ -251,15 +254,16 @@ async fn api_docs_html() -> Html<String> {
             margin: 0 auto;
             background: var(--black);
             min-height: 100vh;
-            border-left: 4px solid var(--matrix-green);
-            border-right: 4px solid var(--matrix-green);
+            border-left: 4px solid var(--green-primary);
+            border-right: 4px solid var(--green-primary);
+            box-shadow: 0 0 20px var(--green-glow);
         }}
         
         /* SIDEBAR - STARK GEOMETRY */
         .sidebar {{
             width: 300px;
             background: var(--dark);
-            border-right: 4px solid var(--matrix-green);
+            border-right: 4px solid var(--green-primary);
             padding: 0;
             position: sticky;
             top: 0;
@@ -269,53 +273,57 @@ async fn api_docs_html() -> Html<String> {
         
         .sidebar-header {{
             padding: 24px;
-            border-bottom: 4px solid var(--matrix-green);
+            border-bottom: 4px solid var(--green-primary);
             background: var(--black);
-            color: var(--matrix-green);
+            color: var(--green-primary);
         }}
         
         .sidebar-header h2 {{
             font-size: 16px;
-            font-weight: bold;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-bottom: 8px;
+            text-shadow: 0 0 10px var(--green-glow);
         }}
         
         .sidebar-header .version {{
             font-size: 12px;
-            color: var(--matrix-green-dark);
+            color: var(--green-secondary);
             letter-spacing: 1px;
         }}
         
         /* NAVIGATION - BRUTALIST LINKS */
         .nav-category {{
             font-size: 11px;
-            font-weight: bold;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 2px;
-            color: var(--matrix-green);
+            color: var(--green-primary);
             padding: 16px 24px 8px;
             background: var(--dark);
-            border-bottom: 2px solid var(--matrix-green);
+            border-bottom: 2px solid var(--green-primary);
+            text-shadow: 0 0 8px var(--green-glow);
         }}
         
         .nav-item {{
             display: block;
             padding: 12px 24px;
-            color: var(--matrix-green-dark);
+            color: var(--green-secondary);
             text-decoration: none;
             font-size: 13px;
             border-left: 4px solid transparent;
             background: var(--dark);
             border-bottom: 1px solid var(--dark-gray);
-            transition: none;
+            transition: all 0.2s ease;
+            line-height: 1.6;
         }}
         
         .nav-item:hover {{
             background: var(--black);
-            color: var(--matrix-green);
-            border-left-color: var(--matrix-green);
+            color: var(--green-primary);
+            border-left-color: var(--green-primary);
+            text-shadow: 0 0 8px var(--green-glow);
         }}
         
         /* MAIN CONTENT */
@@ -329,149 +337,161 @@ async fn api_docs_html() -> Html<String> {
         /* HEADER - BRUTALIST BANNER */
         .header {{
             background: var(--black);
-            color: var(--matrix-green);
-            padding: 32px;
+            color: var(--green-primary);
+            padding: 40px 32px;
             text-align: left;
-            border-bottom: 4px solid var(--matrix-green);
+            border-bottom: 4px solid var(--green-primary);
         }}
         
         .header h1 {{
-            font-size: 24px;
-            font-weight: bold;
+            font-size: 28px;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 3px;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+            text-shadow: 0 0 15px var(--green-glow);
+            line-height: 1.3;
         }}
         
         .header .version {{
-            font-size: 12px;
-            color: var(--matrix-green-dark);
+            font-size: 13px;
+            color: var(--green-secondary);
             letter-spacing: 2px;
         }}
         
         /* SECTIONS */
         .section-title {{
-            font-size: 18px;
-            font-weight: bold;
+            font-size: 20px;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 2px;
-            color: var(--matrix-green);
+            color: var(--green-primary);
             margin: 0;
-            padding: 24px 32px;
-            border-bottom: 4px solid var(--matrix-green);
+            padding: 28px 32px;
+            border-bottom: 4px solid var(--green-primary);
             background: var(--dark);
+            text-shadow: 0 0 10px var(--green-glow);
         }}
         
         /* BASE URL BOX */
         .base-url {{
             background: var(--dark);
-            color: var(--matrix-green);
-            padding: 16px 32px;
-            border-bottom: 4px solid var(--matrix-green);
+            color: var(--green-primary);
+            padding: 20px 32px;
+            border-bottom: 4px solid var(--green-primary);
         }}
         
         .base-url code {{
-            font-size: 13px;
+            font-size: 14px;
             letter-spacing: 1px;
-            color: var(--matrix-green);
+            color: var(--green-primary);
+            text-shadow: 0 0 8px var(--green-glow);
         }}
         
         /* ENDPOINT CARDS - BRUTALIST BOXES */
         .endpoint-card {{
-            border: 4px solid var(--matrix-green);
-            padding: 24px 32px;
+            border: 4px solid var(--green-primary);
+            padding: 32px;
             margin: 0;
             background: var(--black);
             border-top: none;
         }}
         
         .endpoint-card:last-child {{
-            border-bottom: 4px solid var(--matrix-green);
+            border-bottom: 4px solid var(--green-primary);
         }}
         
         .endpoint-header {{
             display: flex;
             align-items: center;
             gap: 16px;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }}
         
-        /* METHOD BADGES - MATRIX STYLE */
+        /* METHOD BADGES - GLOWY STYLE */
         .method-badge {{
-            padding: 4px 12px;
-            font-weight: bold;
+            padding: 6px 14px;
+            font-weight: 600;
             font-size: 11px;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            border: 2px solid var(--matrix-green);
+            letter-spacing: 1.5px;
+            border: 2px solid var(--green-primary);
             background: var(--black);
-            color: var(--matrix-green);
+            color: var(--green-primary);
+            text-shadow: 0 0 8px var(--green-glow);
         }}
         
         .method-badge.get {{
-            background: var(--matrix-green);
+            background: var(--green-primary);
             color: var(--black);
+            text-shadow: none;
         }}
         
         .method-badge.post {{
             background: var(--black);
-            color: var(--matrix-green);
-            border: 2px solid var(--matrix-green);
+            color: var(--green-primary);
+            border: 2px solid var(--green-primary);
         }}
         
         .method-badge.put {{
             background: var(--dark-gray);
-            color: var(--matrix-green);
+            color: var(--green-primary);
         }}
         
         .method-badge.delete {{
-            background: var(--matrix-green-dark);
+            background: var(--green-secondary);
             color: var(--black);
+            text-shadow: none;
         }}
         
         /* PATH - MONOSPACE CODE */
         .path {{
             background: var(--dark);
-            padding: 4px 8px;
-            font-size: 13px;
-            color: var(--matrix-green);
-            border: 2px solid var(--matrix-green);
+            padding: 6px 12px;
+            font-size: 14px;
+            color: var(--green-primary);
+            border: 2px solid var(--green-primary);
             letter-spacing: 0.5px;
+            text-shadow: 0 0 6px var(--green-glow);
         }}
         
-        /* DESCRIPTION */
+        /* DESCRIPTION - IMPROVED READABILITY */
         .description {{
-            color: var(--matrix-green-dark);
-            margin-bottom: 16px;
-            line-height: 1.6;
-            font-size: 13px;
+            color: var(--green-secondary);
+            margin-bottom: 20px;
+            line-height: 1.8;
+            font-size: 14px;
+            max-width: 800px;
         }}
         
-        /* EXAMPLE BOXES */
+        /* EXAMPLE BOXES - IMPROVED READABILITY */
         .example {{
             background: var(--dark);
-            border: 4px solid var(--matrix-green);
-            padding: 16px;
-            margin-top: 16px;
+            border: 4px solid var(--green-primary);
+            padding: 20px;
+            margin-top: 20px;
         }}
         
         .example strong {{
             display: block;
-            margin-bottom: 12px;
-            color: var(--matrix-green);
-            font-size: 11px;
+            margin-bottom: 16px;
+            color: var(--green-primary);
+            font-size: 12px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            text-shadow: 0 0 6px var(--green-glow);
         }}
         
         .example pre {{
             background: var(--black);
-            color: var(--matrix-green);
-            padding: 16px;
-            border: 2px solid var(--matrix-green);
+            color: var(--green-primary);
+            padding: 20px;
+            border: 2px solid var(--green-primary);
             overflow-x: auto;
-            font-size: 12px;
-            line-height: 1.5;
+            font-size: 13px;
+            line-height: 1.7;
+            text-shadow: 0 0 8px var(--green-glow);
         }}
         
         .example code {{
@@ -480,43 +500,59 @@ async fn api_docs_html() -> Html<String> {
         
         /* PERFORMANCE METRIC */
         .performance {{
-            margin-top: 16px;
-            color: var(--matrix-green-bright);
-            font-weight: bold;
-            font-size: 11px;
+            margin-top: 20px;
+            color: var(--green-accent);
+            font-weight: 600;
+            font-size: 12px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            text-shadow: 0 0 8px rgba(0, 255, 136, 0.4);
         }}
         
-        /* UTILITY CLASSES */
+        /* UTILITY CLASSES - IMPROVED READABILITY */
         h1, h2, h3, h4, h5, h6 {{
             font-family: 'IBM Plex Mono', 'Courier New', 'Monaco', 'Menlo', 'Consolas', monospace;
-            font-weight: bold;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 2px;
+            line-height: 1.4;
         }}
         
         code {{
             font-family: 'IBM Plex Mono', 'Courier New', 'Monaco', 'Menlo', 'Consolas', monospace;
+            font-size: 0.95em;
         }}
         
-        /* SCROLLBAR - MATRIX STYLE */
+        /* SCROLLBAR - GLOWY STYLE */
         ::-webkit-scrollbar {{
-            width: 12px;
+            width: 14px;
         }}
         
         ::-webkit-scrollbar-track {{
             background: var(--black);
-            border-left: 2px solid var(--matrix-green);
+            border-left: 2px solid var(--green-primary);
         }}
         
         ::-webkit-scrollbar-thumb {{
-            background: var(--matrix-green);
+            background: var(--green-primary);
             border: 2px solid var(--black);
+            box-shadow: 0 0 10px var(--green-glow);
         }}
         
         ::-webkit-scrollbar-thumb:hover {{
-            background: var(--matrix-green-bright);
+            background: var(--green-accent);
+            box-shadow: 0 0 15px var(--green-glow);
+        }}
+        
+        /* SELECTION - GLOWY */
+        ::selection {{
+            background: var(--green-primary);
+            color: var(--black);
+        }}
+        
+        ::-moz-selection {{
+            background: var(--green-primary);
+            color: var(--black);
         }}
     </style>
 </head>

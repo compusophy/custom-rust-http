@@ -20,16 +20,18 @@ A brutalist dark mode design system built on the principles of:
 --medium-gray: #2A2A2A        /* Lighter dark */
 --light-gray: #3A3A3A         /* Light dark */
 --white: #FFFFFF              /* Rarely used */
---matrix-green: #00FF41        /* Primary accent - Matrix green */
---matrix-green-dark: #00CC33   /* Darker green for secondary text */
---matrix-green-bright: #00FF88 /* Bright green for highlights */
+--green-primary: #00D977      /* Darker, more opaque green - primary text */
+--green-secondary: #00B366    /* Even darker for secondary text */
+--green-accent: #00FF88       /* Brighter for accents only */
+--green-glow: rgba(0, 217, 119, 0.5)  /* Glow effect for text-shadow */
 ```
 
 **Rules:**
 - Never use colors outside this palette
-- No gradients, shadows, or effects
-- High contrast only (Matrix green on black)
-- Dark backgrounds with green accents
+- Use darker greens (#00D977) instead of bright Matrix green
+- Add subtle glow effects with text-shadow
+- High contrast for readability (WCAG AA+ compliant)
+- Dark backgrounds with darker green accents
 
 ## Typography
 
@@ -52,16 +54,18 @@ font-family: 'IBM Plex Mono', 'Courier New', 'Monaco', 'Menlo', 'Consolas', mono
 - 700 (Bold)
 
 **Scale:**
-- Base: 14px
+- Base: 15px (improved from 14px for readability)
 - Small: 11px-12px
 - Medium: 13px-16px
-- Large: 18px-24px
+- Large: 18px-28px
 
-**Rules:**
+**Readability Rules:**
+- Line-height: 1.7-1.8 for body text (improved from 1.5)
+- Letter-spacing: 0.3px for body, 1px-3px for headings
 - All text is uppercase for headings
-- Letter-spacing: 1px-3px for emphasis
-- Line-height: 1.5
-- No font-weight variations beyond bold/normal
+- Font-weight: 400 (regular) for body, 600-700 for headings
+- Max-width: 800px for descriptions (optimal reading width)
+- Text-shadow glow effects for emphasis
 
 ## Spacing System
 
@@ -97,9 +101,9 @@ font-family: 'IBM Plex Mono', 'Courier New', 'Monaco', 'Menlo', 'Consolas', mono
 ```css
 .button {
     padding: 12px 24px;
-    border: 4px solid var(--matrix-green);
+    border: 4px solid var(--green-primary);
     background: var(--black);
-    color: var(--matrix-green);
+    color: var(--green-primary);
     font-family: 'IBM Plex Mono', monospace;
     font-size: 13px;
     text-transform: uppercase;
@@ -108,7 +112,7 @@ font-family: 'IBM Plex Mono', 'Courier New', 'Monaco', 'Menlo', 'Consolas', mono
 }
 
 .button:hover {
-    background: var(--matrix-green);
+    background: var(--green-primary);
     color: var(--black);
 }
 ```
@@ -116,10 +120,10 @@ font-family: 'IBM Plex Mono', 'Courier New', 'Monaco', 'Menlo', 'Consolas', mono
 ### Cards/Boxes
 ```css
 .card {
-    border: 4px solid var(--matrix-green);
+    border: 4px solid var(--green-primary);
     padding: 24px 32px;
     background: var(--black);
-    color: var(--matrix-green);
+    color: var(--green-primary);
 }
 ```
 
@@ -127,9 +131,9 @@ font-family: 'IBM Plex Mono', 'Courier New', 'Monaco', 'Menlo', 'Consolas', mono
 ```css
 .input {
     padding: 12px 16px;
-    border: 4px solid var(--matrix-green);
+    border: 4px solid var(--green-primary);
     background: var(--dark);
-    color: var(--matrix-green);
+    color: var(--green-primary);
     font-family: 'IBM Plex Mono', monospace;
     font-size: 13px;
 }
@@ -139,9 +143,9 @@ font-family: 'IBM Plex Mono', 'Courier New', 'Monaco', 'Menlo', 'Consolas', mono
 ```css
 code {
     background: var(--black);
-    color: var(--matrix-green);
+    color: var(--green-primary);
     padding: 16px;
-    border: 2px solid var(--matrix-green);
+    border: 2px solid var(--green-primary);
     font-family: 'IBM Plex Mono', monospace;
     font-size: 12px;
 }
