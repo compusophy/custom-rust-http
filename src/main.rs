@@ -49,7 +49,7 @@ async fn marco() -> Json<PoloResponse> {
 
 async fn api_docs_json() -> Json<ApiDocs> {
     Json(ApiDocs {
-        name: "Rust HTTP Blockchain API".to_string(),
+        name: "RUSTful".to_string(),
         version: "1.0.0".to_string(),
         base_url: "https://custom-rust-http-production.up.railway.app".to_string(),
         endpoints: vec![
@@ -201,7 +201,7 @@ async fn api_docs_html() -> Html<String> {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <title>{} - API Documentation</title>
+    <title>RUSTful - API Documentation</title>
     <style>
         /* ============================================
            BRUTALIST MONOCHROME DESIGN SYSTEM
@@ -324,6 +324,44 @@ async fn api_docs_html() -> Html<String> {
             color: var(--green-primary);
             border-left-color: var(--green-primary);
             text-shadow: 0 0 8px var(--green-glow);
+        }}
+        
+        /* NAVIGATION BAR */
+        .top-nav {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 32px;
+            border-bottom: 4px solid var(--green-primary);
+            background: var(--black);
+        }}
+        
+        .top-nav-brand {{
+            font-size: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--green-primary);
+            text-shadow: 0 0 15px var(--green-glow);
+            text-decoration: none;
+        }}
+        
+        .top-nav-link {{
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--green-secondary);
+            text-decoration: none;
+            padding: 6px 14px;
+            border: 2px solid var(--green-primary);
+            transition: all 0.2s ease;
+        }}
+        
+        .top-nav-link:hover {{
+            background: var(--green-primary);
+            color: var(--black);
+            text-shadow: none;
         }}
         
         /* MAIN CONTENT */
@@ -561,16 +599,18 @@ async fn api_docs_html() -> Html<String> {
         <div class="sidebar">
             <div class="sidebar-header">
                 <h2>{}</h2>
-                <div class="version">v{}</div>
             </div>
             <nav>
                 {}
             </nav>
         </div>
         <div class="main-content">
+            <nav class="top-nav">
+                <a href="/marketing" class="top-nav-brand">RUSTful</a>
+                <a href="/marketing" class="top-nav-link">Home</a>
+            </nav>
             <div class="header">
                 <h1>{}</h1>
-                <div class="version">Version {}</div>
             </div>
             <div class="base-url">
                 Base URL: <code>{}</code>
@@ -580,7 +620,186 @@ async fn api_docs_html() -> Html<String> {
     </div>
 </body>
 </html>
-    "#, docs.name, docs.name, docs.version, sidebar_items, docs.name, docs.version, docs.base_url, endpoints_html);
+    "#, docs.name, sidebar_items, docs.name, docs.base_url, endpoints_html);
+    
+    Html(html)
+}
+
+async fn marketing_page() -> Html<String> {
+    let html = format!(r#"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>RUSTful - Ultra-Fast Blockchain API</title>
+    <style>
+        /* ============================================
+           BRUTALIST DARK MODE DESIGN SYSTEM
+           Minimalist | Monospace | Geometric | Stark
+           ============================================ */
+        
+        * {{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }}
+        
+        body, html {{
+            font-family: 'IBM Plex Mono', 'Courier New', 'Monaco', 'Menlo', 'Consolas', monospace;
+            font-size: 15px;
+            line-height: 1.7;
+            letter-spacing: 0.3px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-weight: 400;
+            background: var(--black);
+            color: var(--green-primary);
+            min-height: 100vh;
+        }}
+        
+        :root {{
+            --black: #000000;
+            --dark: #0A0A0A;
+            --dark-gray: #1A1A1A;
+            --green-primary: #00D977;
+            --green-secondary: #00B366;
+            --green-accent: #00FF88;
+            --green-glow: rgba(0, 217, 119, 0.5);
+        }}
+        
+        .container {{
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            border-left: 4px solid var(--green-primary);
+            border-right: 4px solid var(--green-primary);
+            box-shadow: 0 0 20px var(--green-glow);
+        }}
+        
+        /* NAVIGATION */
+        .nav {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 32px;
+            border-bottom: 4px solid var(--green-primary);
+            background: var(--black);
+        }}
+        
+        .nav-brand {{
+            font-size: 24px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--green-primary);
+            text-shadow: 0 0 15px var(--green-glow);
+            text-decoration: none;
+        }}
+        
+        .nav-link {{
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--green-secondary);
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 2px solid var(--green-primary);
+            transition: all 0.2s ease;
+        }}
+        
+        .nav-link:hover {{
+            background: var(--green-primary);
+            color: var(--black);
+            text-shadow: none;
+        }}
+        
+        /* HERO SECTION */
+        .hero {{
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 80px 32px;
+            text-align: center;
+            background: var(--black);
+        }}
+        
+        .hero h1 {{
+            font-size: 64px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 24px;
+            color: var(--green-primary);
+            text-shadow: 0 0 20px var(--green-glow);
+            line-height: 1.2;
+        }}
+        
+        .hero p {{
+            font-size: 18px;
+            color: var(--green-secondary);
+            margin-bottom: 48px;
+            max-width: 600px;
+            line-height: 1.8;
+        }}
+        
+        .cta-button {{
+            padding: 20px 48px;
+            font-size: 18px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 4px solid var(--green-primary);
+            background: var(--black);
+            color: var(--green-primary);
+            text-decoration: none;
+            text-shadow: 0 0 10px var(--green-glow);
+            transition: all 0.2s ease;
+            cursor: pointer;
+            display: inline-block;
+        }}
+        
+        .cta-button:hover {{
+            background: var(--green-primary);
+            color: var(--black);
+            text-shadow: none;
+            box-shadow: 0 0 30px var(--green-glow);
+        }}
+        
+        ::selection {{
+            background: var(--green-primary);
+            color: var(--black);
+        }}
+        
+        ::-moz-selection {{
+            background: var(--green-primary);
+            color: var(--black);
+        }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="nav">
+            <a href="/marketing" class="nav-brand">RUSTful</a>
+            <a href="/docs" class="nav-link">Docs</a>
+        </nav>
+        <div class="hero">
+            <h1>RUSTful</h1>
+            <p>Ultra-fast blockchain API built with Rust. Sub-100ms response times. WebSocket streaming. Enterprise-grade performance.</p>
+            <a href="/marketing" class="cta-button">Launch App</a>
+        </div>
+    </div>
+</body>
+</html>
+    "#);
     
     Html(html)
 }
@@ -677,6 +896,8 @@ async fn main() {
 
     // Build the application with routes
     let app = Router::new()
+        .route("/", get(marketing_page))
+        .route("/marketing", get(marketing_page))
         .route("/api/marco", get(marco))
         .route("/api/getCurrentBlock", get({
             let state = app_state.clone();
