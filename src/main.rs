@@ -743,12 +743,38 @@ async fn marketing_page() -> Html<String> {
             line-height: 1.2;
         }}
         
-        .hero p {{
-            font-size: 18px;
+        .hero-tagline {{
+            font-size: 20px;
             color: var(--green-secondary);
-            margin-bottom: 48px;
+            margin-bottom: 32px;
             max-width: 600px;
             line-height: 1.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }}
+        
+        .hero-bullets {{
+            list-style: none;
+            margin-bottom: 48px;
+            max-width: 600px;
+        }}
+        
+        .hero-bullets li {{
+            font-size: 16px;
+            color: var(--green-secondary);
+            margin-bottom: 16px;
+            padding-left: 24px;
+            position: relative;
+            line-height: 1.8;
+        }}
+        
+        .hero-bullets li::before {{
+            content: "-";
+            position: absolute;
+            left: 0;
+            color: var(--green-primary);
+            font-weight: 700;
+            font-size: 20px;
         }}
         
         .cta-button {{
@@ -793,7 +819,11 @@ async fn marketing_page() -> Html<String> {
         </nav>
         <div class="hero">
             <h1>RUSTful</h1>
-            <p>Ultra-fast blockchain API built with Rust. Sub-100ms response times. WebSocket streaming. Enterprise-grade performance.</p>
+            <p class="hero-tagline">Ultra-fast HTTP built with Rust</p>
+            <ul class="hero-bullets">
+                <li>Sub-100ms response times</li>
+                <li>Enterprise-grade performance</li>
+            </ul>
             <a href="/marketing" class="cta-button">Launch App</a>
         </div>
     </div>
