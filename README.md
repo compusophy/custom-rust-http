@@ -1,4 +1,4 @@
-# Rust HTTP Server
+# Custom Rust HTTP Server
 
 A simple, fast HTTP server built with Rust and Axum.
 
